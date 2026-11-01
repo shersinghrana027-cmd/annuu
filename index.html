@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Small Gift For You ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ---------- Intro Screen ---------- */
+    .screen {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .active { display: flex; }
+
+    h1 {
+      font-family: 'Sacramento', cursive;
+      color: #d63384;
+      font-size: 3rem;
+      margin-bottom: 15px;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    p {
+      color: #6c2c7f;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn { 
+      from {opacity:0;} 
+      to {opacity:1;} 
+    }
+
+    button {
+      background: #ff80ab;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: popIn 1s ease 1s forwards;
+      transform: scale(0);
+    }
+    @keyframes popIn {
+      to { transform: scale(1); }
+    }
+
+    button:hover { transform: scale(1.1); }
+
+    /* Falling hearts on intro */
+    .fall-heart {
+      position: fixed;
+      font-size: 22px;
+      top: -30px;
+      animation: fall 6s linear forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    @keyframes fall {
+      from { transform: translateY(0) rotate(0deg); opacity: 1; }
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ---------- Album Screen ---------- */
+    .circle-wrapper {
+      perspective: 2000px;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: visible;
+    }
+
+    .circle-container {
+      width: 90vw;
+      max-width: 750px;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .circle-container img {
+      position: absolute;
+      width: 180px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      transition: transform 0.5s, opacity 0.5s, filter 0.5s;
+    }
+
+    .heart-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 110px;
+      color: #ff3366;
+      text-shadow: 0 0 40px rgba(255, 51, 102, 0.9);
+      animation: heartbeat 1.5s infinite;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      h1 { font-size: 2.2rem; }
+      .circle-container img { width: 160px; height: 230px; }
+      .heart-center { font-size: 90px; }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .circle-wrapper { height: 85vh; }
+      .circle-container img { width: 150px; height: 210px; }
+      .heart-center { font-size: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro Screen -->
+  <div class="screen active" id="intro">
+    <h1>Tumaree liyee chotaa surprise 💕</h1>
+    <p>Heyyy, Sunoo 💖<br>I have something for you 🦋<br><b>Hehehe... and this one's only for YOU 💕</b></p>
+    <button onclick="showGallery()">Idhar Click Karo ✨</button>
+  </div>
+
+  <!-- Album Screen -->
+  <div class="screen" id="album">
+    <h1>A Small Gift for U ❤️</h1>
+    <div class="circle-wrapper">
+      <div class="circle-container" id="circle">
+        <div class="heart-center">❤️</div>
+        <img src="image/1.jpeg" alt="Memory 1">
+        <img src="image/2.jpeg" alt="Memory 2">
+        <img src="image/3.jpeg" alt="Memory 3">
+        <img src="image/4.jpeg" alt="Memory 4">
+        <img src="image/5.jpeg" alt="Memory 5">
+        <img src="image/6.jpeg" alt="Memory 6">
+        <img src="image/7.jpeg" alt="Memory 7">
+        <img src="image/9.jpeg" alt="Memory 9">
+         <img src="image/10.jpeg" alt="Memory 10">
+        <img src="image/11.jpeg" alt="Memory 11">
+        <img src="image/12.jpeg" alt="Memory 12">
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* Switch to Album */
+    function showGallery() {
+      document.getElementById("intro").classList.remove("active");
+      document.getElementById("album").classList.add("active");
+      document.getElementById("bgMusic").play();
+    }
+
+    /* Falling hearts intro */
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "fall-heart";
+      const emojis = ["❤️","💖","💜","💛","💙","💚"];
+      heart.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 700);
+
+    /* Album 3D Carousel */
+    const circle = document.getElementById("circle");
+    const images = circle.querySelectorAll("img");
+    const total = images.length;
+    const angleStep = 360 / total;
+    const radius = 300;
+
+    let rotationY = 0;
+    let autoRotateSpeed = 0.2;
+    let isDragging = false;
+    let startX = 0;
+    let dragVelocity = 0;
+
+    // Position images in 3D circle
+    images.forEach((img, i) => {
+      const angle = i * angleStep;
+      img.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+    });
+
+    // Update opacity & blur based on rotation
+    function update3D() {
+      images.forEach((img, i) => {
+        const style = window.getComputedStyle(img);
+        const matrix = new WebKitCSSMatrix(window.getComputedStyle(img).transform);
+        let imgRotationY = (i * angleStep + rotationY) % 360;
+        if (imgRotationY > 90 && imgRotationY < 270) {
+          img.style.opacity = "0.2";
+          img.style.filter = "blur(1px)";
+        } else {
+          img.style.opacity = "1";
+          img.style.filter = "brightness(1.1) drop-shadow(0 0 15px rgba(255,255,255,0.7))";
+        }
+      });
+    }
+
+    // Main rotation loop
+    function renderRotation() {
+      if (!isDragging) {
+        rotationY += autoRotateSpeed + dragVelocity;
+        dragVelocity *= 0.95; // slow momentum
+      }
+      circle.style.transform = `rotateY(${rotationY}deg)`;
+      update3D();
+      requestAnimationFrame(renderRotation);
+    }
+    renderRotation();
+
+    // Mouse events
+    circle.addEventListener("mousedown", e => {
+      isDragging = true;
+      startX = e.clientX;
+    });
+
+    window.addEventListener("mouseup", () => { isDragging = false; });
+
+    window.addEventListener("mousemove", e => {
+      if (isDragging) {
+        let deltaX = e.clientX - startX;
+        startX = e.clientX;
+        rotationY += deltaX * 0.5;
+        dragVelocity = deltaX * 0.05;
+      }
+    });
+
+    // Touch events
+    circle.addEventListener("touchstart", e => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+
+    window.addEventListener("touchend", () => { isDragging = false; });
+
+    window.addEventListener("touchmove", e => {
+      if (isDragging) {
+        let deltaX = e.touches[0].clientX - startX;
+        startX = e.touches[0].clientX;
+        rotationY += deltaX * 0.5;
+        dragVelocity = deltaX * 0.05;
+      }
+    });
+  </script>
+</body>
+</html>
